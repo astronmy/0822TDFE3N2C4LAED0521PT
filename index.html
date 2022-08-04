@@ -5,17 +5,52 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Using HTML</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Using JSX</title>
 </head>
 
 <body>
-  <h1>Bienvenidos Camada 4</h1>
-  <picture>
-    <img src="https://randomuser.me/api/portraits/lego/6.jpg" alt="avatar">
-    <p>Lego</p>
-  </picture>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script type="text/javascript">
+    const movies = [
+      "Mean Girls",
+      "Die Hard",
+      "Hot Fuzz",
+      "Kill Bill",
+      "John Wick",
+      "Shrek",
+      "Ted",
+      "The Godfather",
+      "Avengers",
+      "Amelie",
+      "The Dark Knight",
+      "Angry Men",
+      "Flashback",
+      "Luca",
+      "Cruella",
+      "Pulp Fiction",
+      "The Good, the Bad and the Ugly",
+      "Fight Club",
+      "Forrest Gump",
+      "Inception",
+      "Goodfellas",
+      "Life Is Beautiful",
+      "Spirited Away",
+      "Interstellar",
+      "The Pianist",
+      "etc"
+    ]
+    const app = document.getElementById("root")
 
+    const Movies = (props) => {
+        const pelis = props.movies.map( peli => React.createElement("li", {key: peli}, peli ))
+        return React.createElement("ul", null, pelis)
+    }
+
+    ReactDOM.render(React.createElement(Movies,{movies}), app)
+
+  </script>
 </body>
 
 </html>
