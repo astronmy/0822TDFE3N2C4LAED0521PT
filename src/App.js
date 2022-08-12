@@ -1,20 +1,11 @@
 import './App.css';
-import ContainerF from './components/ContainerF';
+import { getPokemones } from "./data/pokemones";
+import Container from './components/Container';
 
 function App() {
-  const heroes = [
-    {id: 1, name: "Spiderman", origin: "Marvel"},
-    {id: 2, name: "Superman", origin: "DC"},
-    {id: 3, name: "Batman", origin: "DC"},
-    {id: 4, name: "Hulk", origin: "Marvel"},
-    {id: 5, name: "Lobo", origin: "DC"}
-  ]
-
-
+  const pokemones = getPokemones()
   return (
-      <>
-        <ContainerF heroes={heroes}/>
-      </>
+      <Container data={pokemones} title="Tengo que atraparlos!"/>
   );
 }
 

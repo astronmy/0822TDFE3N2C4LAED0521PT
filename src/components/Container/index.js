@@ -1,29 +1,21 @@
 
 import React from 'react'
-import Heroe from '../Heroe'
+import Pokemon from '../Pokemon';
 import './index.css'
 
-export default class Container extends React.Component{
-   constructor(props){
-      super(props)
-      console.log(props)
+const Container = ({data , title}) => {
 
-      this.hola = this.hola.bind(this)
-   }
+  return (
+    <>
+      <h2>{title}</h2>
+      <div className="container">
+        {
+          data.map((pokemon) => <Pokemon key={(pokemon)} name={pokemon.name} avatar={pokemon.avatar} type={pokemon.type} />)
+        }
+      </div>
+    </>
+  )
+};
 
-   hola(){
-        alert("hola")
-   }  
+export default Container;
 
-   render(){
-    return (
-        <div className="container">
-          <h2>Bienvenidos</h2>
-          <button onClick={this.hola}>Click Hola!</button>
-          {
-            this.props.heroes.map( (heroe) => <Heroe  name={heroe.name} origin={heroe.origin} /> )
-          } 
-        </div>
-    )
-   }
-}
