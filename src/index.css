@@ -14,8 +14,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url("../public/images/bg-body.png");
   font-family: "Pokemon Solid", sans-serif;
+  background-color: crimson;
 }
 
 code {
