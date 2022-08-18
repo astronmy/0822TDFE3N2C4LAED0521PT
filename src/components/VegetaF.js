@@ -2,7 +2,7 @@ import {useState} from 'react'
 import styles from '../styles/container.module.css'
 
 const VegetaF = () => {
-  const imageUp = "https://vegeta-flexiones.netlify.app/static/media/up.fd9f3c14.png";
+  const imageUp   = "https://vegeta-flexiones.netlify.app/static/media/up.fd9f3c14.png";
   const imageDown = "https://vegeta-flexiones.netlify.app/static/media/down.2f147ccd.png";
   const [contador, setContador] = useState(1)
   const [image, setImage] = useState(imageUp)
