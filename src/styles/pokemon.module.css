@@ -12,8 +12,6 @@
   object-fit: cover;
   max-height: 200px;
 }
-
-
 .water {
   background-color: lightblue;
 }
@@ -22,7 +20,24 @@
   color: white;
   background-color: crimson;
 }
-
 .rock {
   background-color: lightgray;
+}
+.title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.btn {
+  border: none;
+  background-color: crimson;
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  max-width: 150px;
+  margin: 10px auto;
+}
+.btn:hover {
+  background-color: rgba(220, 20, 60, 0.452);
 }
