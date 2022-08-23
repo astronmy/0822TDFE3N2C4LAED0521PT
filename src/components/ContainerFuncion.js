@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { getPokemonesByType, getRandomPokemon } from '../data/pokemones';
 import styles from '../styles/container.module.css'
@@ -21,8 +22,8 @@ const ContainerFuncion = ({ title }) => {
     setName(name)
   }
 
-  const cambiarTipo = () => {
-    setType('fire')
+  const cambiarTipo = (tipo) => {
+    setType(tipo)
   }
 
   return (
@@ -32,7 +33,11 @@ const ContainerFuncion = ({ title }) => {
       <h4 className={styles.subtitle}>
         Un <span className={styles.wild}>{name}</span> salvaje a aparecido
       </h4>
-      <button onClick={cambiarTipo} >Cambiar a Fuego</button>
+      <div className={styles.buttonbar}>
+        <button className={`${styles.btnFilter} ${styles.fire}`} onClick={() => cambiarTipo('fire')} >F</button>
+        <button className={`${styles.btnFilter} ${styles.water}`} onClick={() => cambiarTipo('water')} >W</button>
+        <button className={`${styles.btnFilter} ${styles.rock}`} onClick={() => cambiarTipo('rock')}>R</button>
+      </div>
       <div className={styles.container}>
         {
           pokemones.map((pokemon) => <Pokemon key={(pokemon.id)} name={pokemon.name} avatar={pokemon.avatar} type={pokemon.type} actualizar={cambiarPortada} />)
