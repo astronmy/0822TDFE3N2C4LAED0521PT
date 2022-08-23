@@ -1,8 +1,16 @@
-h2{
-  font-size: 3rem;
+.title, .wild{
   color: #ffcc01;
   text-align: center;
   text-shadow: 4px 4px #3265af;
+}
+.title{
+  font-size: 3rem;
+}
+.subtitle{
+  color: #eee;
+  font-size: 1.5rem;
+  text-align: center;
+  text-shadow: 4px 4px #000;
 }
 .container {
   background: transparent url("/public/images/bg-content.png") left top;
@@ -18,4 +26,10 @@ h2{
   display: block;
   margin: 0 auto;
   max-width: 200px;
+}
+
+button {
+  display: block;
+  margin: 0.4rem auto;
+  padding: 0.5rem;
 }

@@ -31,48 +31,48 @@ export const pokemonData = [
     avatar: "https://i.pinimg.com/originals/a8/69/91/a869915fdb507d7de8f23739aa989535.jpg",
     type: "water"
   }, {
-    id: 8,
+    id: 7,
     name: "Squirtle",
     avatar: "https://i.pinimg.com/originals/b2/01/18/b201181cd337130bbec6d9f9f00a2932.png",
     type: "water"
   }, {
-    id: 9,
+    id: 8,
     name: "Lapras",
     avatar: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/131.png",
     type: "water"
   }, {
-    id: 10,
+    id: 9,
     name: "Cloyster",
     avatar: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/091.png",
     type: "water"
   }, {
-    id: 11,
+    id: 10,
     name: "Slowbro",
     avatar: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/080_f3.png",
     type: "water"
   }, {
-    id: 12,
+    id: 11,
     name: "Kingdraw",
     avatar: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/230.png",
     type: "water"
   },
   {
-    id: 13,
+    id: 12,
     name: "Geodude",
     avatar: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/074_f2.png",
     type: "rock"
   }, {
-    id: 14,
+    id: 13,
     name: "Rhyhorn",
     avatar: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/111.png",
     type: "rock"
   }, {
-    id: 15,
+    id: 14,
     name: "Lycanroc",
     avatar: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/745.png",
     type: "rock"
   }, {
-    id: 16,
+    id: 15,
     name: "Rolycoly",
     avatar: "https://images.wikidexcdn.net/mwuploads/wikidex/thumb/0/08/latest/20190708232850/Rolycoly.png/1200px-Rolycoly.png",
     type: "rock"
@@ -81,8 +81,13 @@ export const pokemonData = [
 export const getPokemones = () => pokemonData
 
 export const getRandomPokemon = () => {
-   const randomId =  (Math.floor(Math.random() * 16))+1;
+   const randomId =  (Math.floor(Math.random() * 15))+1;
    const pokemon = pokemonData.find((item) => item.id === randomId);
-   console.log(pokemon, randomId)
    return pokemon;
+}
+
+export const getPokemonesByType = (type) => {
+  console.log("se llamo al metodo")
+  return pokemonData.filter( (item ) => item.type === type)
+
 }

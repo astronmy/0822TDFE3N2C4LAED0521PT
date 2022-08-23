@@ -1,11 +1,10 @@
 import './App.css';
-import { getPokemones } from "./data/pokemones";
 import Container from './components/Container';
+import ContainerFuncion from './components/ContainerFuncion';
 
 function App() {
-  const pokemones = getPokemones()
   return (
-      <Container data={pokemones} title="Tengo que atraparlos!"/>
+      <ContainerFuncion title="Tengo que atraparlos!"/>
   );
 }
 
