@@ -1,12 +1,14 @@
 import './App.css';
-import Vegeta from './components/Vegeta';
-import VegetaF from './components/VegetaF';
+import CounterApp from './components/CounterApp';
+import RelojHooks from './components/RelojHooks';
 
 function App() {
+  
+
   return (
     <>
-      <Vegeta />
-      <VegetaF />
+      {/* <CounterApp stock={20}/> */}
+      <RelojHooks/>
     </>
   )
 }

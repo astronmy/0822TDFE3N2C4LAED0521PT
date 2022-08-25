@@ -1,22 +1,7 @@
 .container {
   align-items: center;
-  background-color: crimson;
   display: flex;
-  gap: 1rem;
   flex-direction: column;
+  gap: 0.5rem;
   justify-content: center;
-  padding: 3rem;
-  margin: auto;
-}
-
-.container :nth-child(1) {
-  width: 200px;
-}
-
-.container :nth-child(2) {
-  width: 200px;
-}
-
-.btn {
-  padding: 1rem;
 }
