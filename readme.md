@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# Ciclo de vida (componentes basados en funciones)
+Cuando trabajamos con componentes basados en funciones es necesario que utilicemos un hook para poder manejar el ciclo de vida de los componentes. El hook encargado de esta tarea se llama useEffect()
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## useEffect
+	Este hook recibe dos parámetros:
+- una arrow function
+- un array de dependencias
 
-## Available Scripts
+### Montaje
 
-In the project directory, you can run:
+Si no especificamos el array de dependencias lo que sucede dentro de la funcion de flecha se ejecutara cada vez que el componente renderice por lo cual es importante no permitir este comportamiento  y en ese caso asignarle un array vacío **[ ]**
 
-### `npm start`
+```
+useEffect( () => {
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  console.log("montaje")
+    
+}, [])
+```
+Como se puede observar en la imagen anterior esta definición es lo que análogamente conocemos como **componentDidMount** y todo lo definido en la función se ejecutará por única vez en la etapa de montaje
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Actualizacion
 
-### `npm test`
+Cuando se trata de la etapa de **actualización**  tenemos que hacer uso del array de dependencias que recibimos como segundo parámetro. Esto quiere decir que podemos tener dentro de nuestro componente funcional más de una invocación a useEffect dependiendo de que queremos capturar en cada caso. Ya que este segundo parámetro recibe los **estados** o **props** que queremos observar y en el caso de que cambien ejecutar el código comprendido en la actualización.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+ useEffect(() => {
+    let temporizador;
+    if(visible){
+      temporizador = setInterval( () => {
+          setHour(new Date().toLocaleTimeString())
+      }, 1000)
+    }else{
+        clearInterval(temporizador)
+    }
 
-### `npm run build`
+  }, [visible])
+```
+Por ejemplo en la imagen anterior podemos ver como utilizamos **useEffect** como listener del estado **visible**. Si este estado cambia:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Y es **verdadero**  se tiene que ejecutar un temporizador que lo que va a hacer es modificar otro estado del componente que es la hora 1 vez por segundo.
+- Pero si es **falso** va a limpiar ese intervalo para que deje de ejecutarse.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Desmontaje
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+En el caso del **desmontaje** es más sencillo aún. Si definimos dentro de **useEffect**  una función de retorno. Será esta la que se ejecute durante el desmontaje
 
-### `npm run eject`
+```
+useEffect( () => {
+      console.log("montaje")
+     return () => {
+        console.log("Se desmonto el reloj hora")
+     }  
+  }, [])
+```
+Por ejemplo en la imagen anterior Reloj es un componente que al momento de montarse tira un mensaje por consola y al momento de desmontarse otro.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Eventos Sintéticos y Nativos
+Manejar eventos en React es muy similar a manejar eventos en el DOM. Sin embargo existen algunas diferencias de sintaxis:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Los eventos de React se nombran usando camelCase, en vez de minúsculas. Con JSX pasas una función como el manejador del evento, en vez de un string.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+En HTML un evento lo observamos como:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+<button onclick="handleClick()">Click Me!</button>
+```
+En React lo observamos de la siguiente forma:
+```
+<button onClick={handleClick}>Click Me!</button>
+```
+Podemos observar que en **React** no hacemos uso de los paréntesis ya que eso significa realizar una ejecución inmediata pudiendo de esta forma entrar en un bucle. Otra diferencia a tener en cuenta es que en React no podemos retornar false para prevenir el comportamiento por defecto, para ello, tenemos que hacer uso de prevenDefault específicamente.
 
-## Learn More
+	“Toda función manejadora de eventos solo debería recibir el evento en sí.  SI necesito mandar al manejador más parámetros que el evento en si, para ello la forma más simplificada es hacer una  ejecución anónima  (e) => {handleclick(e, “texto”)}”
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Los eventos nativos en **React** están envueltos en lo que se denomina eventos sintéticos o **SyntheticBaseEvent**. Esto lo hace para proveer mayor adaptabilidad entre los navegadores. Aun así podemos acceder al evento nativo navegando el evento recibido con el manejador a través de **nativeEvent**.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Eventos Personalizados
+Pero qué sucede cuando tengo un componente que cumple el rol de botón dentro de mi App? En este caso no puedo asignarle a mi componente el evento onClick ya que no lo interpretaría como un evento sintético sino que por el contrario lo tomaría como una prop.
 
-### Code Splitting
+En este caso generó un evento personalizado que es simplemente enviar al componente hijo por medio de las props la referencia al metodo a ejecutar y dentro de este hacer la ejecucion a traves del metodo onClick
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+const handleClick = (texto) => {
+    console.log(texto)
 
-### Analyzing the Bundle Size
+  }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  return (
+    <div className={styles.container}>
+     <Button myClick={() => handleClick( "Hola Mundo")}/>
+    </div>
+  );
+```
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+const Button = ({myClick}) =>{
+  return (
+      <button onClick={myClick} >Click</button>
+  )
+}
+export default Button;
+```
