@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Consumo de API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Para consumir APIs tenemos que estar familiarizados con conceptos como fetch y promesas. Cuando se habla expresamente de React debemos tener noción de otros conceptos como el ciclo de vida de los componentes y los estados. Lo que hemos visto hasta ahora con los Hooks como useEffect y useState
 
-## Available Scripts
+## ¿Qué es fetch API?
 
-In the project directory, you can run:
+Es una interfaz para obtener información de una url. Que está ampliamente soportada por los navegadores de hoy dia. 
 
-### `npm start`
+[Mas info](https://developer.mozilla.org/es/docs/Web/API/Fetch_API)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Uso de fetch
+Su uso es sencillo y lo podemos ver a lo largo del siguiente [ejemplo](https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## La API de Rick & Morty
+Para lo que nos saben API como sus siglas lo indican es Application Programming Interface, en español, Interfaz de Programación de Aplicaciones.
 
-### `npm test`
+Es un conjunto de servicios y funciones destinados a alimentar de información a otro sistema que lo requiera. Dicho de una forma más criolla, es un sistema que brinda información y procedimientos a otros sistemas que la requieran.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Dentro de internet encontramos múltiples tipos de API con diferentes tipo de información. Algunas que requieren seguridad para utilizarlas, otras que tienen un cupo de uso gratis y otro pago. Y por último, apis libres de uso. Lo que tienen en común hoy en dia es que la gran mayoría trabajan sobre una arquitectura REST (Transferencia de Estado Representacional)
 
-### `npm run build`
+Para explicar el consumo de APIS con React utilizaremos la API de Rick & Morty. Que se encuentra [aqui](https://rickandmortyapi.com/documentation)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Esta API no requiere autenticación y nos provee de diferentes endpoints. Para el ejemplo usaremos el de obtener personajes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  **GET** https://rickandmortyapi.com/api/character
+  
+```
+fetch("https://rickandmortyapi.com/api/character") //1) llamada a la API, el resultado es una Promise
+.then((response) => response.json())              // 2) cuando la petición finalice, transformamos la respuesta a JSON (response.json() también es una Promise)
+.then((data) => console.log(''))                  // 3) aquí ya tenemos la respuesta en formato objeto
+.catch(() => console.log('algo salio mal'))
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+El llamado de fetch retorna un objeto de tipo Promise, es por eso que tenemos que encadenar un then que se ejecutará una vez fetch haya terminado de obtener el recurso solicitado. A su vez, la línea que transforma a JSON la respuesta también es asíncrona, es por eso que cuando usamos fetch necesitaremos tener dos then, uno para la respuesta y la otra para su transformación a JSON. Dentro de results encontraremos el detalle de personajes consultados. La respuesta resultante nos provee además información sobre la cantidad de registros e incluso nos pagina dichos resultados. 
 
-### `npm run eject`
+Para poder capturar los errores debemos agregar un catch que será el encargado de atrapar el error y ejecutar lo que necesitemos que se haga en ese caso
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Servicio para probar respuestas 
+Para poder testear respuestas podemos hacer uso del servicio de [mock.codes](https://mock.codes/)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Cómo usar fetch en React
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Manejar el ciclo de vida de los componentes nos permite dar una mejor UX ya que podemos mostrar nuestro sitio de forma inmediata (la estructura estática) y todo aquello que genera lo que se denomina una llamada asíncrona controlarlo luego del montaje de los componentes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Es decir, puedo cargar toda la estructura de mi sitio pero el contenedor que muestra para el ejemplo los personajes de Rick and Morty dejarlo cargando hasta que obtengamos una respuesta de la API.
 
-## Learn More
+A través del uso de useEffect puedo controlar este ciclo de vida. Por lo que hemos visto hasta ahora luego del montaje es conveniente hacer esa llamada a la API
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+const [loading, setLoading] = useState(true)
+  const [page, setPage] = useState(1)
+  const [personajes, setPersonajes] = useState([])
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ useEffect( () => {
+   console.log('1')
+     fetch(`${endpoint}${page}`)
+     .then( (response) => response.json())
+     .then( (data) => {
+         setPersonajes(data.results)
+         setLoading(false)
+     })
+ }, [])
+```
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

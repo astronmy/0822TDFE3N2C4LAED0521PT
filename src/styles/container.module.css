@@ -1,7 +1,36 @@
 .container {
-  align-items: center;
+  display: grid;
+  column-gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  margin: 1rem auto;
+  width: 80%;
+}
+
+.buttonbar {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: center;
+}
+.buttonbar button {
+  background-color: crimson;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 1rem;
+  margin-top: 1rem;
+  transition: all 0.3s ease-in-out;
+  width: 150px;
+}
+
+button:hover{
+  background-color: salmon;
+  transform: scale(1.1);
+}
+
+@media screen and (max-width: 375px){
+  .container{
+    grid-template-columns: repeat(2, 45%);
+  }
 }
