@@ -21,6 +21,16 @@
   text-align: center;
 }
 
+.link{
+  background-color: crimson;
+  color: white;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  width: 120px;
+  margin: 0.3rem auto;
+}
+
 @media screen and (max-width: 375px) {
   .character{
     max-height: 200px;
