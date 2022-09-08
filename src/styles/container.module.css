@@ -32,14 +32,8 @@ button:hover{
 .pagination{
   display: flex;
   flex-flow: row wrap;
-  gap: 0.4rem;
   justify-content: center;
-}
-
-.pagination button {
-  padding: 10px;
-  text-align: center;
-  width: 80px;
+  gap: 0.4rem;
 }
 
 @media screen and (max-width: 375px){
@@ -47,4 +41,3 @@ button:hover{
     grid-template-columns: repeat(2, 45%);
   }
 }
-

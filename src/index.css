@@ -9,6 +9,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+.active {
+  font-weight: bold;
+}
 
 body {
   margin: 0;
@@ -26,4 +29,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.active {
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-decoration: underline;
 }

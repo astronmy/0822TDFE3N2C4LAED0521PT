@@ -5,16 +5,20 @@ import CharacterList from './components/CharacterList';
 import Header from './components/Header';
 
 function App() {
+
   return (
     <>
-      <Header/>
       <BrowserRouter>
+        <Header />
         <Routes>
-            <Route path="/" element={<CharacterList/>} ></Route>
-            <Route path="/character/:id" element={<CharacterDetail/>} ></Route>
+          <Route path="/" element={<CharacterList />} />
+          <Route exact path="/characters" element={<CharacterList />} />
+          <Route path="/character/:id" element={<CharacterDetail />}>
+              <Route path='info' element={<h4 style={{color: 'white', textAlign: 'center'}}>Mas Info </h4>}/>
+          </Route>
+          <Route path='*' element={<h4 style={{color: 'white', textAlign: 'center'}}>Not Found </h4>} />
         </Routes>
       </BrowserRouter>
-      
     </>
   )
 }

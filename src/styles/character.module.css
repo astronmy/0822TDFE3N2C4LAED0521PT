@@ -20,12 +20,14 @@
   font-size: 1.8rem;
   text-align: center;
 }
-.link {
-  color: white;
+
+.link{
   background-color: crimson;
-  margin: 0.4rem auto;
+  color: white;
   padding: 10px;
+  text-align: center;
   width: 100px;
+  margin: 0.3rem auto;
 }
 
 @media screen and (max-width: 375px) {
