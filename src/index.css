@@ -1,9 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/pokemon-solid");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Poppins:wght@400;700&display=swap");
-@font-face {
-  font-family: 'RickAndMorty';
-  src: url('./assets/fonts/get_schwifty.ttf')  format('truetype');
-}
 * {
   margin: 0;
   padding: 0;
@@ -20,10 +16,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('./assets/images/bg.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  font-family: 'RickAndMorty';
 }
 
 code {

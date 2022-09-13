@@ -1,28 +1,14 @@
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import styles from '../styles/header.module.css'
+import { useContext } from "react";
+import Context from "../context/MyContext"
 
-const Header = ( {authenticated} ) => {
-  const navigate = useNavigate()
-  const excludePaths = ['/', '/characters', '/login'];
-  const {pathname:currentPath}  = useLocation()
 
-  const backButton = () =>{
-    navigate(-1)
-  }
+const Header = () => {
+  const {getTotal} = useContext(Context)
+
   return (
-      <nav className={styles.header}>
-          {(!excludePaths.includes(currentPath)) && <button onClick={backButton}>back</button>}
-          {
-            authenticated ? 
-              <>
-                 <NavLink to='/characters'>Characters</NavLink>
-              </>
-            :
-            <NavLink to='/login'>Login</NavLink>
-          }
-         
-      </nav>
+      <header>
+        {getTotal()}
+      </header>
   )
 }
-
 export default Header;
