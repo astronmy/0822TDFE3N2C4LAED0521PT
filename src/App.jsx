@@ -1,19 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import CounterApp from './components/CounterApp';
-import Header from './components/Header';
-import { MyContextProvider } from './context/MyContext';
+import Home from './components/Home';
+import Navbar from './components/Navbar';
+import ProductContainer from './components/ProductContainer';
+import ProductDetail from './components/ProductDetail';
 
 function App() {
   return (
-    <MyContextProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-            <Route path='/' element={<CounterApp quantity={10} />} />
-        </Routes>
-      </BrowserRouter>
-    </MyContextProvider>
+    <BrowserRouter>
+      <Navbar title="ECommerce"/>
+      <Routes>
+          <Route path='/' element={<Home />}></Route>
+          <Route path='/products' element={<ProductContainer />}></Route>
+          <Route path='/products/:id' element={<ProductDetail />}></Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
