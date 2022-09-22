@@ -1,0 +1,44 @@
+import { useState } from "react"
+import { createContext } from "react"
+
+const Context = createContext()
+
+export const CartContextProvider = ( {children}) => {
+  const [cart, setCart] = useState([])
+  
+  const addItem = (product, quantity) => {
+      if(!isInCart(product.id)){
+          const seleccion = {
+            ...product,
+            quantity
+          }
+          setCart([...cart, seleccion])
+      }else{
+         cart.forEach(prod => {
+            if(prod.id === product.id){
+              prod.quantity += quantity
+            }
+         })
+      }
+  }
+
+  const getTotal = () => {
+    let total = 0;
+    cart.forEach(item =>{
+        total+= item.price
+    })
+    return total;
+  }
+
+  const isInCart = (id) => {
+      return cart.some( (item) => item.id === id)
+  }
+
+  return (
+     <Context.Provider value={{addItem, getTotal}}>
+        {children}
+     </Context.Provider>
+  )
+}
+
+export default Context
