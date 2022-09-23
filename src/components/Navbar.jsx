@@ -1,3 +1,4 @@
+import { Container } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 
@@ -7,9 +8,10 @@ const Navbar = ({title:titulo}) => {
   return (
     <nav>
         <Link to="/">{titulo}</Link>
-        <div>
+        <Container display='flex' justifyContent='space-evenly'>
             <Link to="/products">Productos</Link>
-        </div>
+            <Link to="/cart">Carrito</Link>
+        </Container>
     </nav>
   )
 }

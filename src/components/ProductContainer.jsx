@@ -1,3 +1,4 @@
+import { Box, Container, Grid, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import Product from "./Product"
 
@@ -15,7 +16,7 @@ const ProductContainer = () => {
         .then((response) => response.json())
         .then((result) => setProducts(result.results))
         .finally(() => setLoading(false))
-    }, 1500)
+    }, 1400)
   }
 
   useEffect(() => {
@@ -27,14 +28,30 @@ const ProductContainer = () => {
 
   if (loading) {
     return (
-      <h4>Obteniendo productos....</h4>
+        <Grid templateColumns='repeat(1, 1fr)' gap={6}>
+          <Box padding='6' boxShadow='lg' bg='white'>
+            <SkeletonCircle size='10' />
+            <SkeletonText mt='4' noOfLines={4} spacing='4' />
+          </Box>
+          <Box padding='6' boxShadow='lg' bg='white'>
+            <SkeletonCircle size='10' />
+            <SkeletonText mt='4' noOfLines={4} spacing='4' />
+          </Box>
+          <Box padding='6' boxShadow='lg' bg='white'>
+            <SkeletonCircle size='10' />
+            <SkeletonText mt='4' noOfLines={4} spacing='4' />
+          </Box>
+
+        </Grid>
     )
   }
 
   return (
-    <>
-      {products.map((producto) => <Product key={producto.id} {...producto} />)}
-    </>
+    <Container maxW='4xl' centerContent >
+      <Grid templateColumns='repeat(1, 1fr)' gap={6}>
+        {products.map((producto) => <Product key={producto.id} {...producto} />)}
+      </Grid>
+    </Container>
   )
 
 
