@@ -1,5 +1,7 @@
 import { Box, Container, Grid, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { useAsync } from "../hooks/useAsync"
+import { getProducts } from "../services/MeliApi"
 import Product from "./Product"
 
 
@@ -7,24 +9,13 @@ const ProductContainer = () => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([])
 
-  const getProducts = (query = "chanclas") => {
-    const url = `https://api.mercadolibre.com/sites/MLA/search?q=${query}`
-    setLoading(true)
-
-    setTimeout(() => {
-      fetch(url)
-        .then((response) => response.json())
-        .then((result) => setProducts(result.results))
-        .finally(() => setLoading(false))
-    }, 1400)
-  }
-
-  useEffect(() => {
-
-    getProducts()
-
-  }, [])
-
+  useAsync(setLoading, 
+           getProducts,
+           setProducts,
+           null,
+           null,
+           null, 
+           [])
 
   if (loading) {
     return (

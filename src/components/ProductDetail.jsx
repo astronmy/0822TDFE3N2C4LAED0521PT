@@ -1,12 +1,15 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from '../styles/detail.module.css'
 import ItemCount from "./ItemCount";
 import CartContext from '../context/CartContext'
+import { useAsync } from "../hooks/useAsync";
+import { getProductById } from "../services/MeliApi";
 
 const ProductDetail = () => {
   const [loading, setLoading] = useState(false)
   const [product, setProduct] = useState({})
+  
   const {id:productId} = useParams()
 
   const {addItem} = useContext(CartContext)
@@ -16,21 +19,13 @@ const ProductDetail = () => {
     addItem({id, title, image, price}, quantity)
   }
 
-  const getProductDetail = (id) => {
-    const url = `https://api.mercadolibre.com/items/${id}`
-    setLoading(true)
-
-    setTimeout(() => {
-      fetch(url)
-        .then((response) => response.json())
-        .then((result) => setProduct(result))
-        .finally(() => setLoading(false))
-    }, 1200)
-  }
-
-  useEffect(() => {
-    getProductDetail(productId)
-  }, [])
+  useAsync(setLoading, 
+    () => getProductById(productId),
+    setProduct,
+    null,
+    null,
+    null, 
+    [])
 
   if (loading) {
     return (
