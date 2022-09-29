@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { createContext } from "react"
+import { createPreference } from "../services/Service"
 
 const Context = createContext()
 
@@ -44,8 +45,14 @@ export const CartContextProvider = ( {children}) => {
     return cart.length
   }
 
+  const doCheckout = async() => {
+    const response = await createPreference({items: cart})
+    return response.global
+  }
+
+
   return (
-     <Context.Provider value={{addItem, getTotal, removeItem, cart, getQuantity}}>
+     <Context.Provider value={{addItem, getTotal, removeItem, cart, getQuantity, doCheckout}}>
         {children}
      </Context.Provider>
   )
